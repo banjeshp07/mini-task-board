@@ -41,19 +41,25 @@ mini-task-board/
 
 ## 1. How to Run Locally
 If you want to test or evaluate this project, follow these quick steps:
+```text
 git clone <https://github.com/banjeshp07/mini-task-board.git>
 cd mini-task-board
 npm install
+```
 
 ##2. Setup Environment Variables
 Create a .env file in the root folder and add your MySQL credentials:
+```text
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=your_mysql_password
 DB_NAME=task_board_db
+```
 
 ## 3. Start Development Server
+```text
 npm run dev
+```
 
 Open http://localhost:3000 in your browser.
 

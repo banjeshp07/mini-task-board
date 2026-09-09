@@ -37,7 +37,7 @@ mini-task-board/
 │   └── types/                # Shared TypeScript interfaces
 ├── package.json
 └── README.md
-
+```
 
 ## 1. How to Run Locally
 If you want to test or evaluate this project, follow these quick steps:

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/db';
+import db from '@/lib/db';
 import { ResultSetHeader } from 'mysql2';
 
 export async function PATCH(
@@ -16,10 +16,11 @@ export async function PATCH(
       return NextResponse.json({ error: 'Invalid status value' }, { status: 400 });
     }
 
-    const [result] = await pool.query<ResultSetHeader>(
+    const res: any = await db.query(
       'UPDATE tasks SET status = ? WHERE id = ?',
       [status, taskId]
     );
+    const result = res[0] as ResultSetHeader;
 
     if (result.affectedRows === 0) {
       return NextResponse.json({ error: 'Task not found' }, { status: 404 });
@@ -39,10 +40,11 @@ export async function DELETE(
   try {
     const taskId = params.id;
 
-    const [result] = await pool.query<ResultSetHeader>(
+    const res: any = await db.query(
       'DELETE FROM tasks WHERE id = ?',
       [taskId]
     );
+    const result = res[0] as ResultSetHeader;
 
     if (result.affectedRows === 0) {
       return NextResponse.json({ error: 'Task not found' }, { status: 404 });

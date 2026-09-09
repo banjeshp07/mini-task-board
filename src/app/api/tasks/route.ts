@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/db';
+import db from '@/lib/db';
 import { RowDataPacket, ResultSetHeader } from 'mysql2';
 
 export async function GET() {
   try {
-    const [rows] = await pool.query<RowDataPacket[]>(
-      'SELECT * FROM tasks ORDER BY created_at DESC'
-    );
+    const res: any = await db.query('SELECT * FROM tasks ORDER BY created_at DESC');
+    const rows = res[0] as RowDataPacket[];
     return NextResponse.json(rows, { status: 200 });
   } catch (err) {
     console.error('Error fetching tasks:', err);
@@ -26,10 +25,11 @@ export async function POST(request: Request) {
     const cleanTitle = title.trim();
     const defaultStatus = 'todo';
 
-    const [result] = await pool.query<ResultSetHeader>(
+    const res: any = await db.query(
       'INSERT INTO tasks (title, status) VALUES (?, ?)',
       [cleanTitle, defaultStatus]
     );
+    const result = res[0] as ResultSetHeader;
 
     const newTask = {
       id: result.insertId,

@@ -65,7 +65,9 @@ Open http://localhost:3000 in your browser.
 
 
 ## API Endpoints Overview
+```text
 GET /api/tasks - Fetch all tasks
 POST /api/tasks - Create a new task
 PATCH /api/tasks/:id - Update task status
 DELETE /api/tasks/:id - Delete a task
+```

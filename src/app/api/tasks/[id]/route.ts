@@ -4,10 +4,11 @@ import { ResultSetHeader } from 'mysql2';
 
 export async function PATCH(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const taskId = params.id;
+    const resolvedParams = await params;
+    const taskId = resolvedParams.id;
     const body = await request.json();
     const { status } = body;
 
@@ -35,10 +36,11 @@ export async function PATCH(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const taskId = params.id;
+    const resolvedParams = await params;
+    const taskId = resolvedParams.id;
 
     const res: any = await db.query(
       'DELETE FROM tasks WHERE id = ?',
